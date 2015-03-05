@@ -1,0 +1,13 @@
+package soduko;
+
+public class Main {
+	public static void main(String[] args) {
+		Solver solver = new Solver();
+		solver.solve();
+		solver.printAll();
+//		Unit unit = new Unit(1, 0, 0, false);
+//		while (solver.increment(unit)) {
+//			System.out.println(unit.getNumber() + " - " + unit.getColumn() + " - " + unit.getRow());
+//		}
+	}
+}
