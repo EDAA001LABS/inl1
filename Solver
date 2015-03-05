@@ -1,0 +1,132 @@
+package soduko;
+
+public class Solver {
+	private Unit[][] numbers;
+
+	// private int currentRow;
+	// private int currentColumn;
+
+	public Solver() {
+		numbers = new Unit[9][9];
+		// currentRow = 0;
+		// currentColumn = 0;
+	}
+
+	/**
+	 * // * Removes the the specified name from this phone book. post: If the //
+	 * * specified name is present in this phone book, it is removed. Otherwise
+	 * // * this phone book is unchanged.
+	 * 
+	 * @param num
+	 *            The Suduko number
+	 * @param r
+	 *            Row from the top (0) down (8)
+	 * @param c
+	 *            Column from the left (0) to the right (8)
+	 * 
+	 * @return true if the number was added
+	 */
+	public boolean add(int num, int r, int c) {
+		if (c < 0 || c >= 9 || r < 0 || r >= 9) {
+			Unit unit = new Unit(num, c, r, true);
+			numbers[c][r] = unit;
+			return true;
+		}
+		return false;
+	}
+
+	public boolean checkUnit(Unit unit) {
+		if (unit == null) {
+			return false;
+		}
+		for (int c = 0; c < 9; c++) {
+			for (int r = 0; r < 9; r++) {
+				if (numbers[c][r] != null) {
+					if ((((c == unit.getColumn()) || r == unit.getRow()))
+							|| (((c / 3) + 1) + ((r / 3) * 3)) == unit
+									.getSection()) {
+						if (numbers[c][r].getNumber() == unit.getNumber()) {
+							return false; // illegal
+						}
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	public boolean increment(Unit unit) {
+//		if (!unit.getVisit()) {
+//			unit.setVisit(true);
+//			unit.setNumber(1);
+//		} else {
+			unit.setNumber(unit.getNumber() + 1);
+			if (unit.getNumber() > 9) {
+				unit.setColumn(unit.getColumn() + 1);
+				unit.setNumber(1);
+				if (unit.getColumn() > 8) {
+					unit.setColumn(0);
+					unit.setNumber(1);
+					unit.setRow(unit.getRow() + 1);
+					if (unit.getRow() > 8) {
+						return false;
+					}
+				}
+			}
+//		}
+		return true;
+	}
+
+	public void printAll() {
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) {
+				if (numbers[c][r] != null) {
+					System.out.print(numbers[c][r].getNumber() + " ");
+				} else {
+					System.out.print(numbers[c][r] + " ");
+				}
+			}
+			System.out.println();
+		}
+	}
+
+	public boolean solve() {
+		Unit unit = new Unit(1, 0, 0, false);
+		return solve(unit);
+	}
+
+	public boolean solve(Unit unit) {
+		if (checkUnit(unit)) {
+			if (numbers[unit.getColumn()][unit.getRow()] == null) {
+				// System.out.println(unit.getColumn() + " - " + unit.getRow());
+				numbers[unit.getColumn()][unit.getRow()] = new Unit(
+						unit.getNumber(), unit.getColumn(), unit.getRow(),
+						false);
+			}
+			if (unit.getColumn() < 8) {
+				unit.setColumn(unit.getColumn() +1);
+			} else if (unit.getRow() < 8) {
+				unit.setColumn(0);
+				unit.setRow(unit.getRow() +1);
+			} else {
+				return true;
+			}
+			unit.setNumber(1);
+			return solve(unit);
+//			if (increment(unit)) {
+//				return solve(unit);
+//			} else {
+//				// printAll();
+//				return true;
+//			}
+		} else if (increment(unit)) {
+			// printAll();
+			// if (unit.getNumber() == 9) {
+			// unit.setNumber(1);
+			// }
+			return solve(unit);
+		} else {
+			return true;
+		}
+	}
+}
