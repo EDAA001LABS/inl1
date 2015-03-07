@@ -6,7 +6,6 @@ public class Unit {
 	private int row;
 	private int section;
 	private boolean original;
-	private boolean visit;
 
 	public Unit(int number, int column, int row, boolean original) {
 		this.number = number;
@@ -14,46 +13,90 @@ public class Unit {
 		this.row = row;
 		this.section = ((column/3)+1) + ((row/3)*3);
 		this.original = original;
-		this.visit = false;
+		if (column > 8) {
+			this.row += 1;
+			this.column = 0;
+			if (this.row > 8) {
+				this.number = -1;
+			}
+		}
 	}
+	
+	/**
+	 * Returns the number of the Unit.
+	 * 
+	 * @return The number of the unit.
+	 */
 	
 	public int getNumber() {
 		return number;
 	}
 	
+	/**
+	 * Returns the row of the Unit.
+	 * 
+	 * @return The row of the unit.
+	 */
 	public int getRow() {
 		return row;
 	}
 	
+	/**
+	 * Returns the column of the Unit.
+	 * 
+	 * @return The column of the unit.
+	 */
 	public int getColumn()  {
 		return column;
 	}
 	
+	/**
+	 * Returns the section of the Unit.
+	 * 
+	 * @return The section of the unit.
+	 */
 	public int getSection() {
 		return section;
 	}
 	
+	/**
+	 * Checks if a unit was added by the user or the program.
+	 * 
+	 * @return true if it was added by the user
+	 */
 	public boolean getOriginal() {
 		return original;
 	}
 	
-	public boolean getVisit() {
-		return visit;
-	}
-	
+	/**
+	 * Sets the number of the unit to the specified number
+	 * 
+	 * @param newNumber
+	 *            The new number
+	 */
 	public void setNumber(int newNumber) {
 		this.number = newNumber;
 	}
+	
+	/**
+	 * Sets the column of the unit to the specified column
+	 * 
+	 * @param newColumn
+	 *            The new column
+	 */
 	public void setColumn (int newColumn) {
 		this.column = newColumn;
+		this.section = ((column/3)+1) + ((row/3)*3);
 	}
+	
+	/**
+	 * Sets the row of the unit to the specified row
+	 * 
+	 * @param newRow
+	 *            The new row
+	 */
 	public void setRow (int newRow) {
 		this.row = newRow;
+		this.section = ((column/3)+1) + ((row/3)*3);
 	}
-	
-	public void setVisit(boolean newVisit) {
-		this.visit = newVisit;
-	}
-	
-	
 }
