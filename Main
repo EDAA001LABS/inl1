@@ -20,23 +20,6 @@ public class Main {
 //		solver.add(5, 1, 1);
 //		solver.add(6, 2, 1);
 //		solver.add(7, 3, 2);
-		
-		
-		
-//		solver.add(3, 0, 0);
-//		solver.add(2, 1, 0);
-//		solver.add(4, 2, 0);
-//		solver.add(1, 3, 0);
-//		solver.add(5, 4, 0);
-//		solver.add(6, 5, 0);
-//		solver.add(7, 6, 0);
-//		
-//		solver.add(1, 0, 1);
-//		solver.add(8, 1, 1);
-//		solver.add(6, 2, 1);
-//		
-//		solver.printAll();
-				
 		if (solver.solve()) {
 			solver.printAll();
 		} else {
