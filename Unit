@@ -1,11 +1,11 @@
 package soduko;
 
 public class Unit {
-	private int number;
-	private int column;
-	private int row;
-	private int section;
-	private boolean original;
+	private int number;											// The soduko number the unit holds.
+	private int column;												// The column in which the unit is.
+	private int row;													// The row in which the unit is.
+	private int section;												// The section in which the unit is.
+	private boolean original;									// If the number was added by the program or the user.
 
 	public Unit(int number, int column, int row, boolean original) {
 		this.number = number;
