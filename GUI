@@ -3,14 +3,20 @@ package soduko;
 import java.awt.*;
 import javax.swing.*;
 
+
+
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
-	public Solver solver;
-	private JFrame frame;
-	public JTextField[][] fields;
-	private JPanel northPanel;
-	private JLabel label;
+	public Solver solver;							// The solver solving the soduko.
+	private JFrame frame;							// The window.
+	private JPanel northPanel;					// The panel containing the text fields
+	public JTextField[][] fields;						// The matrix of text fields for showing numbers.
+	private JLabel errorlabel;						// The error message displayed if the soduko is unsolvable.
 
+	/**
+	 * Creates the window with empty colored tiles for numbers.
+	 * 
+	 */
 	public GUI() {
 		solver = new Solver();
 
@@ -33,6 +39,10 @@ public class GUI extends JFrame {
 		frame.setVisible(true);
 	}
 	
+	/**
+	 * Redraws the window with colored tiles for numbers.
+	 * 
+	 */
 	public void redraw() {
 		for (int r = 0; r < 9; r++) {
 			for (int c = 0; c < 9; c++) {
@@ -47,6 +57,10 @@ public class GUI extends JFrame {
 		}
 	}
 	
+	/**
+	 * Solves the soduko and displays the solution in the window.
+	 * 
+	 */
 	public void solve() {
 		for (int r = 0; r < 9; r++) {
 			for (int c = 0; c < 9; c++) {
@@ -78,18 +92,22 @@ public class GUI extends JFrame {
 				}
 			}
 		} else {
-			label = new JLabel("Olösligt soduko.");
-			label.setForeground (Color.red);
-			frame.add(label);
+			errorlabel = new JLabel("Olösligt soduko.");
+			errorlabel.setForeground (Color.red);
+			frame.add(errorlabel);
 			frame.pack();
 		}
 		frame.revalidate();
 	}
 
+	/**
+	 * Clears and redraws the window.
+	 * 
+	 */
 	public void clear() {
 		solver.clear();
-		if (label != null) {
-			frame.remove(label);
+		if (errorlabel != null) {
+			frame.remove(errorlabel);
 		}
 		northPanel.removeAll();
 		redraw();
