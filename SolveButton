@@ -1,0 +1,21 @@
+package soduko;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+
+@SuppressWarnings("serial")
+public class SolveButton extends JButton implements ActionListener {
+	private GUI gui;
+	
+	public SolveButton(GUI gui) {
+		super("Solve");
+		this.gui = gui;
+		addActionListener(this);
+	}
+	
+	public void actionPerformed(ActionEvent e) {
+		gui.solve();
+	}
+}
