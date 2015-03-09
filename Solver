@@ -122,7 +122,7 @@ public class Solver {
 				if (numbers[c][r] != null) {
 					System.out.print(numbers[c][r].getNumber() + " ");
 				} else {
-					System.out.print(numbers[c][r] + " ");
+					System.out.print('X' + " ");
 				}
 			}
 			System.out.println();
@@ -156,6 +156,7 @@ public class Solver {
 					return true;
 				}
 			}
+//			System.out.println(unit.getNumber() + " - " + unit.getColumn()+ " - " + unit.getRow());
 			return false;
 		}
 
@@ -166,8 +167,11 @@ public class Solver {
 			} else {
 				if (!numbers[unit.getColumn()][unit.getRow()].getOriginal()) {
 					numbers[unit.getColumn()][unit.getRow()] = null;
+					return false;
+				} else {
+					return false;
 				}
-				return false;
+
 			}
 		}
 	}
