@@ -11,11 +11,11 @@ public class Solver {
 	 * Adds the specified number at the specific column and row to the Soduko.
 	 * 
 	 * @param num
-	 *           	The Soduko number
+	 *            The Soduko number
 	 * @param c
-	 * 				Column from the left (0) to the right (8)
+	 *            Column from the left (0) to the right (8)
 	 * @param r
-	 *           	Row from the top (0) down (8)
+	 *            Row from the top (0) down (8)
 	 * 
 	 * @return true if the number was added
 	 */
@@ -88,8 +88,8 @@ public class Solver {
 	}
 
 	/**
-	 * Increments the column and sets the number to 1. If the column was 9
-	 * the column is set to 1 and the row is incremented. The section value is
+	 * Increments the column and sets the number to 1. If the column was 9 the
+	 * column is set to 1 and the row is incremented. The section value is
 	 * automatically updated when the column or row is changed.
 	 * 
 	 * @param unit
@@ -130,9 +130,33 @@ public class Solver {
 	}
 
 	public boolean solve() {
+		// long start = System.nanoTime();
+		// boolean solveable = false;
+		// if (checkInitial()) {
+		// }
+		// long end = System.nanoTime();
+		// System.out.println((end-start)/1000);
+		// return solveable;
+		// } else {
+		// return false;
+		// }
+		
 		Unit unit = new Unit(1, 0, 0, false);
 		return solve(unit);
 	}
+
+	// 590625
+
+//	public boolean checkInitial() {
+//		for (int r = 0; r < 9; r++) {
+//			for (int c = 0; c < 9; c++) {
+//				if (!checkUnit(numbers[c][r])) {
+//					return true;
+//				}
+//			}
+//		}
+//		return false;
+//	}
 
 	/**
 	 * Solves the soduko using recursion and backtracking.
@@ -172,103 +196,24 @@ public class Solver {
 		}
 	}
 
-	// public boolean solve(Unit unit) {
-	// if (unit.getColumn() == 8 && unit.getRow() == 8) {
-	// return true;
-	// }
-	//
-	// if (numbers[unit.getColumn()][unit.getRow()] == null){
-	// for (int i = 1; i < 10; i++) {
-	// Unit newUnit = new Unit(i, unit.getColumn(), unit.getRow(), false);
-	// numbers[unit.getColumn()][unit.getRow()] = newUnit;
-	// // if (checkUnit(newUnit)) {
-	// if (solve(newUnit)) {
-	// incrementColumn(newUnit);
-	// numbers[unit.getColumn()][unit.getRow()] = unit;
-	// // System.out.println(unit.getColumn() + " - "
-	// // + unit.getRow() + " - " + unit.getNumber());
-	// return true;
-	// }
-	// // }
-	// }
-	// return false;
-	// }
-	//
-	// else {
-	// if (checkUnit(numbers[unit.getColumn()][unit.getRow()])) {
-	// incrementColumn(unit);
-	// return solve(unit);
-	// } else if (!numbers[unit.getColumn()][unit.getRow()].getOriginal()) {
-	// increment(unit);
-	// numbers[unit.getColumn()][unit.getRow()] = unit;
-	// System.out.println(unit.getColumn() + " - "
-	// + unit.getRow() + " - " + unit.getNumber());
-	// return solve(unit);
-	// } else {
-	// System.out.println("Olösligt");
-	// return false;
-	// }
-	// }
-	// }
+	/**
+	 * Returns the set of Units in the soduko.
+	 * 
+	 * @return the set of Units in the soduko.
+	 */
+	public Unit[][] getNumbers() {
+		return numbers;
+	}
 
-	// public boolean solve(Unit unit) {
-	// if (checkUnit(unit)) {
-	// if (numbers[unit.getColumn()][unit.getRow()] == null) {
-	// // System.out.println(unit.getColumn() + " - " + unit.getRow());
-	// numbers[unit.getColumn()][unit.getRow()] = new Unit(
-	// unit.getNumber(), unit.getColumn(), unit.getRow(),
-	// false);
-	// }
-	// if (incrementColumn(unit)) {
-	// return solve(unit);
-	// } else {
-	// return true;
-	// }
-	// } else if (unit.getNumber() < 9) {
-	// if (increment(unit)) {
-	// return solve(unit);
-	// } else {
-	// if (backtrack(unit)) {
-	// return solve(unit);
-	// } else {
-	// return false;
-	// }
-	// }
-	// } else {
-	// if (backtrack(unit)) {
-	// return solve(unit);
-	// } else {
-	// return false;
-	// }
-	// }
-	// }
-	//
-	// public boolean backtrack(Unit unit) {
-	// unit.setColumn(unit.getColumn() - 1);
-	// if (unit.getColumn() < 0) {
-	// unit.setRow(unit.getRow() - 1);
-	// unit.setColumn(8);
-	// if (unit.getRow() < 0) {
-	// return false;
-	// }
-	// }
-	// // numbers[unit.getColumn()][unit.getRow()] = null;
-	// if (unit.getNumber() == 9) {
-	// return backtrack(unit);
-	// }
-	// unit.setNumber(numbers[unit.getColumn()][unit.getRow()].getNumber() + 1);
-	// if (numbers[unit.getColumn()][unit.getRow()].getOriginal() == false) {
-	// if (checkUnit(unit)) {
-	// numbers[unit.getColumn()][unit.getRow()] = new Unit(
-	// unit.getNumber(), unit.getColumn(), unit.getRow(),
-	// false);
-	// return true;
-	// } else {
-	// increment(unit);
-	// return backtrack(unit);
-	// }
-	// } else {
-	// return backtrack(unit);
-	// }
-	// }
+	/**
+	 * Clears the set of units.
+	 * 
+	 */
+	public void clear() {
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) {
+				numbers[c][r] = null;
+			}
+		}
+	}
 }
