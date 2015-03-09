@@ -112,7 +112,7 @@ public class Solver {
 
 	/**
 	 * Prints the numbers of the units in the soduko board. If a slot is empty
-	 * "null" is printed
+	 * "X" is printed
 	 * 
 	 */
 	public void printAll() {
