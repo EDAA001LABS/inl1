@@ -41,8 +41,8 @@ public class Solver {
 		if (unit == null) {
 			return false;
 		}
-		for (int c = 0; c < 9; c++) {
-			for (int r = 0; r < 9; r++) {
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) {
 				if (numbers[c][r] != null) {
 					if (c != unit.getColumn() || r != unit.getRow()) {
 						if ((((c == unit.getColumn()) || r == unit.getRow()))
@@ -88,7 +88,7 @@ public class Solver {
 	}
 
 	/**
-	 * Increments the column and sets the number to 1. If the column was 9 the
+	 * Increments the column. If the column was 9 the
 	 * column is set to 1 and the row is incremented. The section value is
 	 * automatically updated when the column or row is changed.
 	 * 
@@ -107,7 +107,6 @@ public class Solver {
 				return false;
 			}
 		}
-		unit.setNumber(1);
 		return true;
 	}
 
@@ -156,14 +155,15 @@ public class Solver {
 					return true;
 				}
 			}
-//			System.out.println(unit.getNumber() + " - " + unit.getColumn()+ " - " + unit.getRow());
+			numbers[unit.getColumn()][unit.getRow()] = null;
 			return false;
 		}
 
 		else {
 			if (checkUnit(numbers[unit.getColumn()][unit.getRow()])) {
-				incrementColumn(unit);
-				return solve(unit);
+				Unit newUnit = new Unit(unit.getNumber(), unit.getColumn(), unit.getRow(), false);
+				incrementColumn(newUnit);
+				return solve(newUnit);
 			} else {
 				if (!numbers[unit.getColumn()][unit.getRow()].getOriginal()) {
 					numbers[unit.getColumn()][unit.getRow()] = null;
