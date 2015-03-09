@@ -1,7 +1,7 @@
 package soduko;
 
 public class Solver {
-	private Unit[][] numbers;
+	private Unit[][] numbers; 				// The matrix containing the numbers for the soduko.
 
 	public Solver() {
 		numbers = new Unit[9][9];
@@ -49,7 +49,7 @@ public class Solver {
 								|| (((c / 3) + 1) + ((r / 3) * 3)) == unit
 										.getSection()) {
 							if (numbers[c][r].getNumber() == unit.getNumber()) {
-								return false; // illegal
+								return false;
 							}
 						}
 					}
@@ -130,33 +130,9 @@ public class Solver {
 	}
 
 	public boolean solve() {
-		// long start = System.nanoTime();
-		// boolean solveable = false;
-		// if (checkInitial()) {
-		// }
-		// long end = System.nanoTime();
-		// System.out.println((end-start)/1000);
-		// return solveable;
-		// } else {
-		// return false;
-		// }
-		
 		Unit unit = new Unit(1, 0, 0, false);
 		return solve(unit);
 	}
-
-	// 590625
-
-//	public boolean checkInitial() {
-//		for (int r = 0; r < 9; r++) {
-//			for (int c = 0; c < 9; c++) {
-//				if (!checkUnit(numbers[c][r])) {
-//					return true;
-//				}
-//			}
-//		}
-//		return false;
-//	}
 
 	/**
 	 * Solves the soduko using recursion and backtracking.
