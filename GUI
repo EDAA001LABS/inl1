@@ -1,0 +1,98 @@
+package soduko;
+
+import java.awt.*;
+import javax.swing.*;
+
+@SuppressWarnings("serial")
+public class GUI extends JFrame {
+	public Solver solver;
+	private JFrame frame;
+	public JTextField[][] fields;
+	private JPanel northPanel;
+	private JLabel label;
+
+	public GUI() {
+		solver = new Solver();
+
+		frame = new JFrame("Soduko");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		northPanel = new JPanel();
+		GridLayout layout = new GridLayout(9, 9);
+		northPanel.setLayout(layout);
+		frame.add(northPanel, BorderLayout.NORTH);
+		fields = new JTextField[9][9];
+		
+		redraw();
+
+		JPanel southPanel = new JPanel();
+		frame.add(southPanel, BorderLayout.SOUTH);
+		southPanel.add(new ClearButton(this));
+		southPanel.add(new SolveButton(this));
+		frame.pack();
+		frame.setVisible(true);
+	}
+	
+	public void redraw() {
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) {
+				JTextField field = new JTextField(null);
+				int section = ((c/3)+1) + ((r/3)*3);
+				if (section % 2 == 1) {
+					field.setBackground(Color.lightGray);
+				}
+				fields[c][r] = field;
+				northPanel.add(field);
+			}
+		}
+	}
+	
+	public void solve() {
+		for (int r = 0; r < 9; r++) {
+			for (int c = 0; c < 9; c++) {
+				if (fields[c][r] != null
+						&& !fields[c][r].getText().equals(new String(""))) {
+					try {
+						Integer num = Integer.parseInt(fields[c][r].getText());
+						solver.add(num, c, r);
+					} catch (NumberFormatException e) {
+						System.err.println("Felaktig formatering");
+						break;
+					}
+				}
+			}
+		}
+		if (solver.solve()) {
+			Unit[][] numbers = solver.getNumbers();
+			northPanel.removeAll();
+			for (int r = 0; r < 9; r++) {
+				for (int c = 0; c < 9; c++) {
+					if (numbers[c][r] != null) {
+						Integer num = numbers[c][r].getNumber();
+						JTextField field = new JTextField(num.toString());
+						if (numbers[c][r].getSection() % 2 == 1) {
+							field.setBackground(Color.lightGray);
+						}
+						northPanel.add(field);
+					}
+				}
+			}
+		} else {
+			label = new JLabel("Olösligt soduko.");
+			label.setForeground (Color.red);
+			frame.add(label);
+			frame.pack();
+		}
+		frame.revalidate();
+	}
+
+	public void clear() {
+		solver.clear();
+		if (label != null) {
+			frame.remove(label);
+		}
+		northPanel.removeAll();
+		redraw();
+		frame.pack();
+	}
+}
