@@ -15,6 +15,10 @@ public class ClearButton extends JButton implements ActionListener {
 		addActionListener(this);
 	}
 	
+	/**
+	 * Tells the GUI to clear the window.
+	 * 
+	 */
 	public void actionPerformed(ActionEvent e) {
 		gui.clear();
 	}
