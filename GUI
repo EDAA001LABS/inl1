@@ -40,7 +40,7 @@ public class GUI extends JFrame {
 	}
 	
 	/**
-	 * Redraws the window with colored tiles for numbers.
+	 * Redraws the window with colored tiles for every other section of numbers.
 	 * 
 	 */
 	public void redraw() {
@@ -60,6 +60,7 @@ public class GUI extends JFrame {
 	/**
 	 * Solves the soduko and displays the solution in the window.
 	 * 
+	 *@thorows NumberFormatException if the JTextField strings are unable to be converted to Integer
 	 */
 	public void solve() {
 		solver.clear();
