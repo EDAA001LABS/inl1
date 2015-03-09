@@ -75,8 +75,6 @@ public class GUI extends JFrame {
 						Integer num = Integer.parseInt(fields[c][r].getText());
 						solver.add(num, c, r);
 					} catch (NumberFormatException e) {
-						System.err.println("Felaktig formatering");
-						break;
 					}
 				}
 			}
