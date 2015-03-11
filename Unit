@@ -1,4 +1,4 @@
-package soduko;
+package sudoku;
 
 public class Unit {
 	private int number;											// The soduko number the unit holds.
