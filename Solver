@@ -1,17 +1,17 @@
-package soduko;
+package sudoku;
 
 public class Solver {
-	private Unit[][] numbers; 				// The matrix containing the numbers for the soduko.
+	private Unit[][] numbers; 				// The matrix containing the numbers for the sudoku.
 
 	public Solver() {
 		numbers = new Unit[9][9];
 	}
 
 	/**
-	 * Adds the specified number at the specific column and row to the Soduko.
+	 * Adds the specified number at the specific column and row to the sudoku.
 	 * 
 	 * @param num
-	 *            The Soduko number
+	 *            The sudoku number
 	 * @param c
 	 *            Column from the left (0) to the right (8)
 	 * @param r
@@ -111,7 +111,7 @@ public class Solver {
 	}
 
 	/**
-	 * Prints the numbers of the units in the soduko board. If a slot is empty
+	 * Prints the numbers of the units in the sudoku board. If a slot is empty
 	 * "X" is printed
 	 * 
 	 */
@@ -127,21 +127,18 @@ public class Solver {
 			System.out.println();
 		}
 	}
-
+	
+	/**
+	 * Solves the sudoku.
+	 * 
+	 * @return true if the sudoku has a solution.
+	 */
 	public boolean solve() {
 		Unit unit = new Unit(1, 0, 0, false);
 		return solve(unit);
 	}
 
-	/**
-	 * Solves the soduko using recursion and backtracking.
-	 * 
-	 * @param unit
-	 *            The initial unit.
-	 * 
-	 * @return true if the soduko has any solution.
-	 */
-	public boolean solve(Unit unit) {
+	private boolean solve(Unit unit) {
 		if (unit.getColumn() == 8 && unit.getRow() == 8
 				&& checkUnit(numbers[8][8])) {
 			return true;
@@ -177,12 +174,18 @@ public class Solver {
 	}
 
 	/**
-	 * Returns the set of Units in the soduko.
+	 * Returns the Unit at the specified column and row.
 	 * 
-	 * @return the set of Units in the soduko.
+	 * @param column
+	 *            The column of the unit
+	 *            
+	 * 	 * @param row
+	 *            The row of the unit
+	 *            
+	 * @return the Unit at the specified column and row.
 	 */
-	public Unit[][] getNumbers() {
-		return numbers;
+	public Unit getUnit(int column, int row) {
+		return numbers[column][row];
 	}
 
 	/**
