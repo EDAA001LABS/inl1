@@ -1,4 +1,4 @@
-package soduko;
+package sudoku;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,6 +9,10 @@ import javax.swing.JButton;
 public class SolveButton extends JButton implements ActionListener {
 	private GUI gui;
 	
+	/**
+	 * Creates the solve button.
+	 * 
+	 */
 	public SolveButton(GUI gui) {
 		super("Solve");
 		this.gui = gui;
@@ -16,7 +20,7 @@ public class SolveButton extends JButton implements ActionListener {
 	}
 	
 	/**
-	 * Tells the GUI to solve the soduko.
+	 * Tells the GUI to solve the sudoku.
 	 * 
 	 */
 	public void actionPerformed(ActionEvent e) {
