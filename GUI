@@ -1,17 +1,17 @@
-package soduko;
+package sudoku;
 
 import java.awt.*;
 import javax.swing.*;
 
-
-
 @SuppressWarnings("serial")
 public class GUI extends JFrame {
-	public Solver solver;							// The solver solving the soduko.
-	private JFrame frame;							// The window.
-	private JPanel northPanel;					// The panel containing the text fields
-	public JTextField[][] fields;						// The matrix of text fields for showing numbers.
-	private JLabel errorlabel;						// The error message displayed if the soduko is unsolvable.
+	private Solver solver; // The solver solving the sudoku.
+	private JFrame frame; // The window.
+	private JPanel northPanel; // The panel containing the text fields
+	private JTextField[][] fields; // The matrix of text fields for showing
+									// numbers.
+	private JLabel errorlabel; // The error message displayed if the sudoku is
+								// unsolvable.
 
 	/**
 	 * Creates the window with empty colored tiles for numbers.
@@ -20,7 +20,7 @@ public class GUI extends JFrame {
 	public GUI() {
 		solver = new Solver();
 
-		frame = new JFrame("Soduko");
+		frame = new JFrame("sudoku");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		northPanel = new JPanel();
@@ -28,7 +28,7 @@ public class GUI extends JFrame {
 		northPanel.setLayout(layout);
 		frame.add(northPanel, BorderLayout.NORTH);
 		fields = new JTextField[9][9];
-		
+
 		redraw();
 
 		JPanel southPanel = new JPanel();
@@ -38,7 +38,7 @@ public class GUI extends JFrame {
 		frame.pack();
 		frame.setVisible(true);
 	}
-	
+
 	/**
 	 * Redraws the window with colored tiles for every other section of numbers.
 	 * 
@@ -46,8 +46,8 @@ public class GUI extends JFrame {
 	public void redraw() {
 		for (int r = 0; r < 9; r++) {
 			for (int c = 0; c < 9; c++) {
-				JTextField field = new JTextField(null);
-				int section = ((c/3)+1) + ((r/3)*3);
+				JTextField field = new JTextField(1);
+				int section = ((c / 3) + 1) + ((r / 3) * 3);
 				if (section % 2 == 1) {
 					field.setBackground(Color.lightGray);
 				}
@@ -56,13 +56,15 @@ public class GUI extends JFrame {
 			}
 		}
 	}
-	
+
 	/**
-	 * Solves the soduko and displays the solution in the window.
+	 * Solves the sudoku and displays the solution in the window.
 	 * 
-	 *@thorows NumberFormatException if the JTextField strings are unable to be converted to Integer
+	 * @throws NumberFormatException if the JTextField strings are unable to be
+	 *          converted to Integer
 	 */
 	public void solve() {
+		boolean unsolvable = false;
 		solver.clear();
 		if (errorlabel != null) {
 			frame.remove(errorlabel);
@@ -74,30 +76,37 @@ public class GUI extends JFrame {
 						&& !fields[c][r].getText().equals(new String(""))) {
 					try {
 						Integer num = Integer.parseInt(fields[c][r].getText());
-						solver.add(num, c, r);
+						if (solver.checkUnit(new Unit(num, c, r, true)) && num < 10 && num > 0) {
+							solver.add(num, c, r);
+						} else {
+							errorlabel = new JLabel("Ogiltig inmatning.");
+							errorlabel.setForeground(Color.red);
+							frame.add(errorlabel);
+							frame.pack();
+							unsolvable = true;
+						}
 					} catch (NumberFormatException e) {
 					}
 				}
 			}
 		}
-		if (solver.solve()) {
-			Unit[][] numbers = solver.getNumbers();
+		if (solver.solve() && !unsolvable) {
 			northPanel.removeAll();
 			for (int r = 0; r < 9; r++) {
 				for (int c = 0; c < 9; c++) {
-					if (numbers[c][r] != null) {
-						Integer num = numbers[c][r].getNumber();
+					if (solver.getUnit(c, r) != null) {
+						Integer num = solver.getUnit(c, r).getNumber();
 						JTextField field = new JTextField(num.toString());
-						if (numbers[c][r].getSection() % 2 == 1) {
+						if (solver.getUnit(c, r).getSection() % 2 == 1) {
 							field.setBackground(Color.lightGray);
 						}
 						northPanel.add(field);
 					}
 				}
 			}
-		} else {
-			errorlabel = new JLabel("Olösligt soduko.");
-			errorlabel.setForeground (Color.red);
+		} else if (!unsolvable) {
+			errorlabel = new JLabel("Olösligt sudoku.");
+			errorlabel.setForeground(Color.red);
 			frame.add(errorlabel);
 			frame.pack();
 		}
