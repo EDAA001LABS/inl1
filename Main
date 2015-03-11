@@ -1,55 +1,47 @@
-package soduko;
+package sudoku;
 
 public class Main {
 	public static void main(String[] args) {
-		Solver solver = new Solver();
-//		GUI gui = new GUI();
+		@SuppressWarnings("unused")
+		GUI gui = new GUI();
 		
-		solver.add(8, 2, 0);
-		solver.add(9, 5, 0);
-		solver.add(6, 7, 0);
-		solver.add(2, 8, 0);
-		
-		solver.add(5, 8, 1);
-		
-		solver.add(1, 0, 2);
-		solver.add(2, 2, 2);
-		solver.add(5, 3, 2);
-		
-		solver.add(2, 3, 3);
-		solver.add(1, 4, 3);
-		solver.add(9, 7, 3);
-		
-		solver.add(5, 1, 4);
-		solver.add(6, 6, 4);
-		
-		solver.add(6, 0, 5);
-		solver.add(2, 7, 5);
-		solver.add(8, 8, 5);
-		
-		solver.add(4, 0, 6);
-		solver.add(1, 1, 6);
-		solver.add(6, 3, 6);
-		solver.add(8, 5, 6);
-		
-		solver.add(8, 0, 7);
-		solver.add(6, 1, 7);
-		solver.add(3, 4, 7);
-		solver.add(1, 6, 7);
-//		solver.add(2, 6, 7);
-		
-		solver.add(4, 6, 8);
-		
-		solver.printAll();
-				
-//		for (int i = 0; i < 3; i++) {
-			System.out.println("\n" + "\n" + "\n" + "\n" + "\n" + "\n" + "\n");
-//		}
-		
-		
-//		System.out.println(solver.solve());
-		solver.solve();
-		solver.printAll();
-				
+//		Solver solver = new Solver();
+//		
+//		solver.add(8, 2, 0);
+//		solver.add(9, 5, 0);
+//		solver.add(6, 7, 0);
+//		solver.add(2, 8, 0);
+//		
+//		solver.add(5, 8, 1);
+//		
+//		solver.add(1, 0, 2);
+//		solver.add(2, 2, 2);
+//		solver.add(5, 3, 2);
+//		
+//		solver.add(2, 3, 3);
+//		solver.add(1, 4, 3);
+//		solver.add(9, 7, 3);
+//		
+//		solver.add(5, 1, 4);
+//		solver.add(6, 6, 4);
+//		
+//		solver.add(6, 0, 5);
+//		solver.add(2, 7, 5);
+//		solver.add(8, 8, 5);
+//		
+//		solver.add(4, 0, 6);
+//		solver.add(1, 1, 6);
+//		solver.add(6, 3, 6);
+//		solver.add(8, 5, 6);
+//		
+//		solver.add(8, 0, 7);
+//		solver.add(6, 1, 7);
+//		solver.add(3, 4, 7);
+//		solver.add(1, 6, 7);
+//		
+//		solver.add(4, 6, 8);
+//		
+//		solver.solve();
+//		solver.printAll();
 	}
 }
